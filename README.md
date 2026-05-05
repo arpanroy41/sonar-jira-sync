@@ -77,16 +77,27 @@ sonar-jira-sync summary
 
 ### MCP Integration
 
-Add to your Cursor MCP config:
+Add to your Cursor MCP config (`~/.cursor/mcp.json`):
 
 ```json
 {
   "sonar-jira-sync": {
     "command": "sonar-jira-sync",
-    "args": ["mcp", "-c", "/path/to/config.yaml"]
+    "args": ["mcp", "-c", "/path/to/config.yaml"],
+    "env": {
+      "SONAR_TOKEN": "your-sonarqube-token",
+      "JIRA_EMAIL": "your-email@company.com",
+      "JIRA_TOKEN": "your-jira-api-token"
+    }
   }
 }
 ```
+
+> **Note:** If `sonar-jira-sync` is not on your PATH, use the full path to the binary:
+> ```json
+> "command": "/Library/Frameworks/Python.framework/Versions/3.12/bin/sonar-jira-sync"
+> ```
+> Find it with: `which sonar-jira-sync` or `pip show -f sonar-jira-sync`
 
 Available MCP tools:
 - `fetch_issues` - Get SonarQube issues grouped by severity
