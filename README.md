@@ -24,6 +24,17 @@ For MCP server support:
 pip install sonar-jira-sync[mcp]
 ```
 
+> **Note:** If you get `command not found: sonar-jira-sync` after install, your Python scripts directory may not be on PATH. Add it:
+> ```bash
+> # Find where pip installed the script
+> pip show -f sonar-jira-sync | grep "Location"
+>
+> # Add to ~/.zshrc (macOS) or ~/.bashrc (Linux) — example for macOS:
+> echo 'export PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:$PATH"' >> ~/.zshrc
+> source ~/.zshrc
+> ```
+> Alternatively, use `pipx install sonar-jira-sync` which handles PATH automatically.
+
 ## Quick Start
 
 1. Copy and customize the config:
@@ -31,15 +42,18 @@ pip install sonar-jira-sync[mcp]
 cp config.example.yaml config.yaml
 ```
 
-2. Set environment variables:
+2. Create a `.env` file with your credentials:
 ```bash
-export SONAR_TOKEN="your-sonarqube-token"
-export JIRA_EMAIL="your-email@company.com"
-export JIRA_TOKEN="your-jira-api-token"
+SONAR_TOKEN=your-sonarqube-token
+JIRA_EMAIL=your-email@company.com
+JIRA_TOKEN="your-jira-api-token"
 ```
 
-3. Run the web UI:
+> **Note:** If your token contains special characters like `=`, wrap it in double quotes.
+
+3. Source the `.env` and run:
 ```bash
+set -a && source .env && set +a
 sonar-jira-sync run
 ```
 
@@ -47,6 +61,8 @@ Or get a CLI summary:
 ```bash
 sonar-jira-sync summary
 ```
+
+> **Tip:** You must source `.env` in each new terminal session, or add `set -a && source /path/to/.env && set +a` to your `~/.zshrc` for persistence.
 
 ## Usage
 
