@@ -19,10 +19,11 @@ def main(ctx, config):
 
 
 @main.command()
+@click.option("--config", "-c", default=None, help="Path to config file.")
 @click.pass_context
-def run(ctx):
+def run(ctx, config):
     """Launch the web UI for interactive review and approval."""
-    cfg = load_config(ctx.obj["config_path"])
+    cfg = load_config(config or ctx.obj["config_path"])
     errors = cfg.validate()
     if errors:
         for err in errors:
@@ -35,11 +36,12 @@ def run(ctx):
 
 
 @main.command()
+@click.option("--config", "-c", default=None, help="Path to config file.")
 @click.option("--severities", "-s", default=None, help="Comma-separated severities to show.")
 @click.pass_context
-def summary(ctx, severities):
+def summary(ctx, config, severities):
     """Show a summary of SonarQube issues and distribution preview."""
-    cfg = load_config(ctx.obj["config_path"])
+    cfg = load_config(config or ctx.obj["config_path"])
     errors = cfg.validate()
     if errors:
         for err in errors:
