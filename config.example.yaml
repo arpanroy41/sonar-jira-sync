@@ -1,0 +1,30 @@
+sonarqube:
+  host: "https://sonarqube.corp.redhat.com"
+  project_key: "your-project-key-here"
+  # Authentication via env var: SONAR_TOKEN
+
+jira:
+  url: "https://your-instance.atlassian.net"
+  project_key: "YOURPROJECT"
+  issue_type: "Bug"
+  labels:
+    - sonarqube
+    - code-quality
+  # Authentication via env vars: JIRA_EMAIL, JIRA_TOKEN
+
+teammates:
+  - name: "Developer 1"
+    email: "dev1@example.com"
+  - name: "Developer 2"
+    email: "dev2@example.com"
+  - name: "Developer 3"
+    email: "dev3@example.com"
+
+settings:
+  port: 8090
+  severities:
+    - BLOCKER
+    - CRITICAL
+    - MAJOR
+    - MINOR
+    - INFO

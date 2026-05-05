@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sonar-jira-sync"
+version = "0.1.0"
+description = "Pull SonarQube issues, review them, and create JIRA tickets distributed among teammates"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "arpanroy41", email = "arpanroy41@gmail.com" },
+]
+keywords = ["sonarqube", "jira", "code-quality", "automation", "mcp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "click>=8.0",
+    "httpx>=0.25",
+    "pyyaml>=6.0",
+    "flask>=3.0",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+mcp = ["fastmcp>=0.1"]
+dev = ["pytest>=7.0", "pytest-asyncio>=0.21", "ruff>=0.1"]
+
+[project.scripts]
+sonar-jira-sync = "sonar_jira_sync.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/arpanroy41/sonar-jira-sync"
+Repository = "https://github.com/arpanroy41/sonar-jira-sync"
+Issues = "https://github.com/arpanroy41/sonar-jira-sync/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sonar_jira_sync"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
