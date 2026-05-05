@@ -96,10 +96,11 @@ def summary(ctx, severities):
 
 
 @main.command()
+@click.option("--config", "-c", default=None, help="Path to config file.")
 @click.pass_context
-def mcp(ctx):
+def mcp(ctx, config):
     """Start the MCP server for AI assistant integration."""
-    cfg_path = ctx.obj["config_path"]
+    cfg_path = config or ctx.obj["config_path"]
 
     try:
         from .mcp.server import create_mcp_server
@@ -109,7 +110,6 @@ def mcp(ctx):
         raise SystemExit(1)
 
     server = create_mcp_server(config_path=cfg_path)
-    console.print("[bold green]Starting MCP server...[/]")
     server.run()
 
 
